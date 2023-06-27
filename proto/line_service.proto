@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package klp;
+
+option go_package = "./pb";
+
+import "google/protobuf/timestamp.proto";
+
+message SubscribeRequest {
+    repeated string sport = 1;
+    google.protobuf.Timestamp interval = 2;
+}
+
+
+message SubscribeResponse {
+    repeated Line line = 1;
+}
+
+
+message Line {
+    string sport = 1;
+    float cf = 2;
+}
+
+service SubscribeService {
+    rpc Subscribe(stream SubscribeRequest) returns (stream SubscribeResponse) {}
+}
